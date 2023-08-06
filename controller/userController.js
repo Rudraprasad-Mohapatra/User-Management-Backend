@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
         });
     } catch (e) {
         if (e.code === 11000) {
-            return res.status(400).json({
+            return res.status(409).json({
                 success: false,
                 message: "Account already exists with provided email id"
             });
@@ -30,7 +30,7 @@ const login = async (req, res) => {
         const user = await userModel.findOne({ email }).select("+password");
         // Check if user account exists with email if not send resp
         if (!user) {
-            return res.status(400).json({
+            return res.status(404).json({
                 msg: "No account associate with this email"
             })
         }
